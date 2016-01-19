@@ -1,0 +1,29 @@
+hash: aa30cf94ca17fcbc6afca412d5bbc929f3f66e8f5f05cf190194fff54f4a1bbb
+updated: 2016-01-19T14:29:21.872647318+08:00
+imports:
+- name: github.com/chanxuehong/util
+  version: dfb13f73c8fa5dbb648119b8b9a0f65c3291ba68
+  repo: https://github.com/chanxuehong/util
+- name: github.com/chanxuehong/wechat
+  version: 9fc96deffd6272d0357d9e8097153e88b139ede1
+- name: github.com/dustin/go-broadcast
+  version: 3bdf6d4a7164a50bc19d5f230e2981d87d2584f1
+- name: github.com/gin-gonic/gin
+  version: 52fcc5dbf6e94df33ad313858fb94b713e9d1b4a
+- name: github.com/manucorporat/sse
+  version: c142f0f1baea5cef7f98a8a6c222f6134368c1f5
+- name: github.com/manucorporat/stats
+  version: 8f2d6ace262eba462e9beb552382c98be51d807b
+- name: github.com/mattn/go-colorable
+  version: d67e0b7d1797975196499f79bcc322c08b9f218b
+- name: github.com/stretchr/objx
+  version: 1a9d0bb9f541897e62256577b352fdbc1fb4fd94
+- name: github.com/stretchr/testify
+  version: 232e8563676cd15c3a36ba5e675ad4312ac4cb11
+  subpackages:
+  - assert
+- name: golang.org/x/net/context
+  version: ""
+- name: gopkg.in/bluesuncorp/validator.v5
+  version: 07cbdd2e6dfd947b002e83c13b775c7580fab2d5
+devImports: []
