@@ -1,9 +1,8 @@
-hash: aa30cf94ca17fcbc6afca412d5bbc929f3f66e8f5f05cf190194fff54f4a1bbb
-updated: 2016-01-19T14:29:21.872647318+08:00
+hash: 370908a1f1d6253b59b72ec0bf44dad54b7070b3908c8e94fd9fcf16519371f0
+updated: 2016-01-19T15:18:24.044346751+08:00
 imports:
 - name: github.com/chanxuehong/util
   version: dfb13f73c8fa5dbb648119b8b9a0f65c3291ba68
-  repo: https://github.com/chanxuehong/util
 - name: github.com/chanxuehong/wechat
   version: 9fc96deffd6272d0357d9e8097153e88b139ede1
 - name: github.com/dustin/go-broadcast
@@ -16,6 +15,8 @@ imports:
   version: 8f2d6ace262eba462e9beb552382c98be51d807b
 - name: github.com/mattn/go-colorable
   version: d67e0b7d1797975196499f79bcc322c08b9f218b
+- name: github.com/Sirupsen/logrus
+  version: f7f79f729e0fbe2fcc061db48a9ba0263f588252
 - name: github.com/stretchr/objx
   version: 1a9d0bb9f541897e62256577b352fdbc1fb4fd94
 - name: github.com/stretchr/testify
@@ -24,6 +25,15 @@ imports:
   - assert
 - name: golang.org/x/net/context
   version: ""
+- name: gopkg.in/airbrake/gobrake.v2
+  version: c9d51adc624b5cc4c1bf8de730a09af4878ffe2d
 - name: gopkg.in/bluesuncorp/validator.v5
   version: 07cbdd2e6dfd947b002e83c13b775c7580fab2d5
+- name: gopkg.in/bsm/ratelimit.v1
+  version: f14ad9c78b155f69b480cfa41cb655259baac260
+  repo: https://gopkg.in/bsm/ratelimit.v1
+- name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
+  version: 31e6fd4bd5a98d8ee7673d24bc54ec73c31810dd
+- name: gopkg.in/redis.v3
+  version: dd1ac33826064181d7abaa20d976eab31ec12b58
 devImports: []

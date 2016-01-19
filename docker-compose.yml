@@ -1,0 +1,24 @@
+app:
+  container_name: app
+  image: golang:1.5.2-alpine
+  environment:
+    - GO15VENDOREXPERIMENT=1
+    - GIN_MODE=debug
+    - HTTP_ADDR=:80
+    - REDIS_ADDR=redis:6379
+  volumes:
+    - $GOPATH:/go
+  working_dir: /go/src/github.com/Jackong/mphub
+  command: "ash -c '\
+  echo \"hosts: files mdns4_minimal [NOTFOUND=return] dns mdns4\" >>/etc/nsswitch.conf \
+  && go install . && mphub'"
+  ports:
+    - "80:80"
+  links:
+    - redis
+redis:
+  container_name: redis
+  image: redis:3.0.6-alpine
+  volumes:
+    - /data/redis:/data
+  command: "redis-server --appendonly yes"
