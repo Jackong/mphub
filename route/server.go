@@ -3,9 +3,8 @@ package route
 import (
 	"net/http"
 
-	log "github.com/Sirupsen/logrus"
+	"github.com/Sirupsen/logrus"
 	"github.com/chanxuehong/wechat/mp"
-	"github.com/chanxuehong/wechat/mp/menu"
 	"github.com/gin-gonic/gin"
 )
 
@@ -26,7 +25,7 @@ func init() {
 }
 
 func errHandler(w http.ResponseWriter, r *http.Request, err error) {
-	log.WithError(err).WithFields(log.Fields{
+	logrus.WithError(err).WithFields(logrus.Fields{
 		"method": r.Method,
 		"path":   r.URL.Path,
 		"query":  r.URL.Query(),
@@ -35,11 +34,28 @@ func errHandler(w http.ResponseWriter, r *http.Request, err error) {
 }
 
 //ServeWechat serve request from wechat
+/**
+ * @api {post} /api/wechat?server=:server 微信服务
+ * @apiName ServeWechat
+ * @apiGroup wechat
+ * @apiParam (Query) {String} server 平台服务名称
+ */
 func ServeWechat(c *gin.Context) {
 	ms.ServeHTTP(c.Writer, c.Request)
 }
 
 //SetServer set a server
+/**
+ * @api {post} /api/servers/:server 添加公众号服务
+ * @apiName SetServer
+ * @apiGroup wechat
+ * @apiParam (Path) {String} server 平台服务名称
+ * @apiParam (Body) {String} oriID 公众号原始ID
+ * @apiParam (Body) {String} appID 公众号AppID
+ * @apiParam (Body) {String} appSecret 公众号secrect
+ * @apiParam (Body) {String} token 公众号token
+ * @apiParam (Body) {String} aesKey 公众号AESKey
+ */
 func SetServer(c *gin.Context) {
 	oriID := c.DefaultPostForm("oriID", "")
 	appID := c.DefaultPostForm("appID", "")
@@ -52,7 +68,7 @@ func SetServer(c *gin.Context) {
 	server := c.Param(serverKey)
 	err := ms.SetServer(server, mp.NewDefaultServer(oriID, token, appID, aesKey, msm))
 	if err != nil {
-		log.WithError(err).WithFields(log.Fields{
+		logrus.WithError(err).WithFields(logrus.Fields{
 			"body":   c.Request.PostForm,
 			"server": server,
 		}).Errorln("Failed to set server for wechat")
@@ -64,19 +80,4 @@ func SetServer(c *gin.Context) {
 	}
 	ts[server] = mp.NewDefaultAccessTokenServer(appID, appSecret, nil)
 	ok(c, nil)
-}
-
-//GetMenu get menu from wechat server
-func GetMenu(c *gin.Context) {
-	server := c.Param(serverKey)
-	client := menu.NewClient(ts[server], nil)
-	menus, err := client.GetMenu()
-	if err != nil {
-		log.WithError(err).WithFields(log.Fields{
-			"server": server,
-		}).Errorln("Failed to get menus from wechat")
-		fail(c, "Failed to get menus from wechat")
-		return
-	}
-	ok(c, map[string]interface{}{"menus": menus})
 }
