@@ -23,8 +23,15 @@ func main() {
 		{
 			server.POST("", route.SetServer)
 			server.GET("/menus", route.GetMenu)
-			server.GET("/oauth/url", route.GetAuthURL)
-			server.GET("/oauth/callback", route.CallbackAuth)
+			oauth := server.Group("/oauth")
+			{
+				oauth.GET("/url", route.GetAuthURL)
+				oauth.GET("/callback", route.CallbackAuth)
+			}
+			user := server.Group("/users")
+			{
+				user.GET("", route.GetUserInfo)
+			}
 		}
 	}
 	r.Run(os.Getenv("HTTP_ADDR"))
