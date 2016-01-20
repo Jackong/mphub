@@ -5,6 +5,7 @@ import (
 
 	"github.com/Sirupsen/logrus"
 	"github.com/chanxuehong/wechat/mp"
+	"github.com/chanxuehong/wechat/mp/user/oauth2"
 	"github.com/gin-gonic/gin"
 )
 
@@ -13,7 +14,8 @@ var (
 	//Servers multiple servers
 	ms *mp.MultiServerFrontend
 
-	ts map[string]mp.AccessTokenServer
+	ts   map[string]mp.AccessTokenServer
+	apps map[string]*oauth2.OAuth2Config
 )
 
 const serverKey = "server"
@@ -22,6 +24,7 @@ func init() {
 	msm = mp.NewMessageServeMux()
 	ms = mp.NewMultiServerFrontend(serverKey, mp.ErrorHandlerFunc(errHandler), nil)
 	ts = map[string]mp.AccessTokenServer{}
+	apps = map[string]*oauth2.OAuth2Config{}
 }
 
 func errHandler(w http.ResponseWriter, r *http.Request, err error) {
@@ -77,7 +80,9 @@ func SetServer(c *gin.Context) {
 	}
 	if _, ok := ts[server]; ok {
 		delete(ts, server)
+		delete(apps, server)
 	}
+	apps[server] = oauth2.NewOAuth2Config(appID, appSecret, "")
 	ts[server] = mp.NewDefaultAccessTokenServer(appID, appSecret, nil)
 	ok(c, nil)
 }
