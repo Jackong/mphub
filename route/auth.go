@@ -2,15 +2,24 @@ package route
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"strings"
+	"time"
 
 	"github.com/Sirupsen/logrus"
+	"github.com/chanxuehong/wechat/oauth2"
+	jwt "github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
 
 const (
-	state = "test"
+	state  = "test"
+	secret = "jackong"
+)
+
+var (
+	tokens = map[string]*oauth2.Token{}
 )
 
 //GetAuthURL get auth url
@@ -53,4 +62,60 @@ func GetAuthURL(c *gin.Context) {
 	params := url.Values{}
 	params.Set("redirect", redirect)
 	ok(c, map[string]interface{}{"url": app.AuthCodeURL(state, params)})
+}
+
+//CallbackAuth callback for oauth
+func CallbackAuth(c *gin.Context) {
+	server := c.Param(serverKey)
+	redirect := c.Query("redirect")
+	code := c.Query("code")
+	if code == "" {
+		fail(c, "Param code is required")
+		return
+	}
+	if redirect == "" {
+		fail(c, "Param redirect is required")
+		return
+	}
+	app, exist := apps[server]
+	if !exist || app == nil {
+		logrus.WithFields(logrus.Fields{
+			"server":   server,
+			"app":      app,
+			"redirect": redirect,
+		}).Errorln("Server not found")
+		fail(c, "Server not found")
+		return
+	}
+	cli := &oauth2.Client{Config: app}
+	accessToken, err := cli.Exchange(code)
+	if err != nil || accessToken == nil {
+		logrus.WithError(err).WithFields(logrus.Fields{
+			"server":   server,
+			"app":      app,
+			"redirect": redirect,
+			"token":    accessToken,
+		}).Errorln("Failed to exchange code and token")
+		fail(c, "Failed to exchange code and token")
+		return
+	}
+	expires := time.Now().Add(time.Hour * 24)
+	token := jwt.New(jwt.SigningMethodHS256)
+	token.Claims["exp"] = expires.Unix()
+	token.Claims["openID"] = accessToken.OpenId
+	token.Claims["unionID"] = accessToken.UnionId
+	tokenString, err := token.SignedString([]byte(secret))
+	if err != nil {
+		logrus.WithError(err).WithFields(logrus.Fields{
+			"server":      server,
+			"app":         app,
+			"redirect":    redirect,
+			"accessToken": accessToken,
+			"token":       token,
+		}).Errorln("Failed to sign a token")
+		fail(c, "Failed to sign a token")
+		return
+	}
+	http.SetCookie(c.Writer, &http.Cookie{Name: "token", Value: tokenString, Path: "/", Expires: expires, HttpOnly: true})
+	c.Redirect(http.StatusTemporaryRedirect, redirect)
 }

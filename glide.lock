@@ -1,10 +1,12 @@
-hash: 370908a1f1d6253b59b72ec0bf44dad54b7070b3908c8e94fd9fcf16519371f0
-updated: 2016-01-19T15:18:24.044346751+08:00
+hash: 198bc7cf5f9a7a9423e0d89e621c4a9f8fbc9829fb7d9506a52c8b84b7b63a6c
+updated: 2016-01-20T15:53:03.666934074+08:00
 imports:
 - name: github.com/chanxuehong/util
   version: dfb13f73c8fa5dbb648119b8b9a0f65c3291ba68
 - name: github.com/chanxuehong/wechat
   version: 9fc96deffd6272d0357d9e8097153e88b139ede1
+- name: github.com/dgrijalva/jwt-go
+  version: afef698c326bfd906b11659432544e5aae441d44
 - name: github.com/dustin/go-broadcast
   version: 3bdf6d4a7164a50bc19d5f230e2981d87d2584f1
 - name: github.com/gin-gonic/gin
@@ -31,7 +33,6 @@ imports:
   version: 07cbdd2e6dfd947b002e83c13b775c7580fab2d5
 - name: gopkg.in/bsm/ratelimit.v1
   version: f14ad9c78b155f69b480cfa41cb655259baac260
-  repo: https://gopkg.in/bsm/ratelimit.v1
 - name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
   version: 31e6fd4bd5a98d8ee7673d24bc54ec73c31810dd
 - name: gopkg.in/redis.v3

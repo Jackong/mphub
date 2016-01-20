@@ -4,3 +4,4 @@ import:
 - package: github.com/chanxuehong/wechat
 - package: github.com/Sirupsen/logrus
 - package: gopkg.in/redis.v3
+- package: github.com/dgrijalva/jwt-go

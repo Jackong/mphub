@@ -24,6 +24,7 @@ func main() {
 			server.POST("", route.SetServer)
 			server.GET("/menus", route.GetMenu)
 			server.GET("/oauth/url", route.GetAuthURL)
+			server.GET("/oauth/callback", route.CallbackAuth)
 		}
 	}
 	r.Run(os.Getenv("HTTP_ADDR"))
