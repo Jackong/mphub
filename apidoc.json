@@ -1,0 +1,15 @@
+{
+  "name": "API",
+  "version": "0.1.0",
+  "description": "微信公众号中心",
+  "title": "微信公众号中心API",
+  "url" : "http://192.168.99.100",
+  "header": {
+    "title": "API规范",
+    "filename": "apidoc_header.md"
+  },
+  "footer": {
+    "title": "错误码",
+    "filename": "apidoc_footer.md"
+  }
+}
