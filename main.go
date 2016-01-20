@@ -29,8 +29,10 @@ func main() {
 				oauth.GET("/callback", route.CallbackAuth)
 			}
 			user := server.Group("/users")
+			user.Use(route.ValidJWT)
 			{
 				user.GET("", route.GetUserInfo)
+				user.POST("/bind", route.BindAOPS)
 			}
 		}
 	}

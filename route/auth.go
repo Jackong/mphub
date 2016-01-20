@@ -104,6 +104,7 @@ func CallbackAuth(c *gin.Context) {
 	token.Claims["exp"] = expires.Unix()
 	token.Claims["openID"] = accessToken.OpenId
 	token.Claims["unionID"] = accessToken.UnionId
+	token.Claims["appID"] = app.AppId
 	tokenString, err := token.SignedString([]byte(secret))
 	if err != nil {
 		logrus.WithError(err).WithFields(logrus.Fields{
@@ -118,4 +119,35 @@ func CallbackAuth(c *gin.Context) {
 	}
 	http.SetCookie(c.Writer, &http.Cookie{Name: "token", Value: tokenString, Path: "/", Expires: expires, HttpOnly: true})
 	c.Redirect(http.StatusTemporaryRedirect, redirect)
+}
+
+//ValidJWT valid token for jwt
+func ValidJWT(c *gin.Context) {
+	server := c.Param(serverKey)
+	if server == "" {
+		c.Abort()
+		fail(c, "Param server is required")
+		return
+	}
+	cookie, err := c.Request.Cookie("token")
+	if err != nil {
+		c.Abort()
+		fail(c, "Invalid token")
+		return
+	}
+	token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
+		return []byte(secret), nil
+	})
+
+	if err != nil || !token.Valid {
+		logrus.WithError(err).WithFields(logrus.Fields{
+			"server": server,
+			"token":  cookie,
+		}).Errorln("Invalid token")
+		c.Abort()
+		fail(c, "Invalid token")
+		return
+	}
+	c.Set("token", token)
+	c.Next()
 }
