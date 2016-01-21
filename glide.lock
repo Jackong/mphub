@@ -1,5 +1,5 @@
-hash: 198bc7cf5f9a7a9423e0d89e621c4a9f8fbc9829fb7d9506a52c8b84b7b63a6c
-updated: 2016-01-20T15:53:03.666934074+08:00
+hash: 3919b92dd590065b4ba63bc6e3f2f9d03b54855b1f8f2eade6ddd0c5ceb7a59a
+updated: 2016-01-21T15:05:10.202205357+08:00
 imports:
 - name: github.com/chanxuehong/util
   version: dfb13f73c8fa5dbb648119b8b9a0f65c3291ba68
@@ -35,6 +35,11 @@ imports:
   version: f14ad9c78b155f69b480cfa41cb655259baac260
 - name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
   version: 31e6fd4bd5a98d8ee7673d24bc54ec73c31810dd
+- name: gopkg.in/mgo.v2
+  version: 03c9f3ee4c14c8e51ee521a6a7d0425658dd6f64
 - name: gopkg.in/redis.v3
   version: dd1ac33826064181d7abaa20d976eab31ec12b58
+- name: gopkg.in/tomb.v2
+  version: 14b3d72120e8d10ea6e6b7f87f7175734b1faab8
+  repo: https://gopkg.in/tomb.v2
 devImports: []

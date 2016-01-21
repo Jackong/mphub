@@ -3,5 +3,5 @@ import:
 - package: github.com/gin-gonic/gin
 - package: github.com/chanxuehong/wechat
 - package: github.com/Sirupsen/logrus
-- package: gopkg.in/redis.v3
 - package: github.com/dgrijalva/jwt-go
+- package: gopkg.in/mgo.v2

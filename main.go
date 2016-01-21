@@ -3,6 +3,7 @@ package main
 import (
 	"os"
 
+	"github.com/Jackong/mphub/mongo"
 	"github.com/Jackong/mphub/route"
 	"github.com/Sirupsen/logrus"
 	"github.com/gin-gonic/gin"
@@ -15,6 +16,8 @@ func init() {
 }
 
 func main() {
+	defer mongo.Close()
+
 	r := gin.Default()
 	api := r.Group("/api")
 	{
@@ -42,4 +45,10 @@ func main() {
 		}
 	}
 	r.Run(os.Getenv("HTTP_ADDR"))
+}
+
+//Person xxx
+type Person struct {
+	Name  string
+	Phone string
 }
