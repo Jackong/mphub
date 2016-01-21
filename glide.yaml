@@ -5,3 +5,6 @@ import:
 - package: github.com/Sirupsen/logrus
 - package: github.com/dgrijalva/jwt-go
 - package: gopkg.in/mgo.v2
+- package: golang.org/x/net
+  subpackages:
+  - /context

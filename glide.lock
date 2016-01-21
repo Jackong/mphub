@@ -1,5 +1,5 @@
-hash: 3919b92dd590065b4ba63bc6e3f2f9d03b54855b1f8f2eade6ddd0c5ceb7a59a
-updated: 2016-01-21T15:05:10.202205357+08:00
+hash: e9519a1a3daa0985fc025bbb252a83b87b69a17baf2a8e53755db191cf610668
+updated: 2016-01-21T08:15:09.706802066Z
 imports:
 - name: github.com/chanxuehong/util
   version: dfb13f73c8fa5dbb648119b8b9a0f65c3291ba68
@@ -25,21 +25,18 @@ imports:
   version: 232e8563676cd15c3a36ba5e675ad4312ac4cb11
   subpackages:
   - assert
-- name: golang.org/x/net/context
-  version: ""
+- name: golang.org/x/net
+  version: 64d6474da289745cd4cace95a3f26b88a164f14a
+  subpackages:
+  - /context
 - name: gopkg.in/airbrake/gobrake.v2
   version: c9d51adc624b5cc4c1bf8de730a09af4878ffe2d
 - name: gopkg.in/bluesuncorp/validator.v5
   version: 07cbdd2e6dfd947b002e83c13b775c7580fab2d5
-- name: gopkg.in/bsm/ratelimit.v1
-  version: f14ad9c78b155f69b480cfa41cb655259baac260
 - name: gopkg.in/gemnasium/logrus-airbrake-hook.v2
   version: 31e6fd4bd5a98d8ee7673d24bc54ec73c31810dd
 - name: gopkg.in/mgo.v2
   version: 03c9f3ee4c14c8e51ee521a6a7d0425658dd6f64
-- name: gopkg.in/redis.v3
-  version: dd1ac33826064181d7abaa20d976eab31ec12b58
 - name: gopkg.in/tomb.v2
   version: 14b3d72120e8d10ea6e6b7f87f7175734b1faab8
-  repo: https://gopkg.in/tomb.v2
 devImports: []
