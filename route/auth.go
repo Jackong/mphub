@@ -123,12 +123,6 @@ func CallbackAuth(c *gin.Context) {
 
 //ValidJWT valid token for jwt
 func ValidJWT(c *gin.Context) {
-	server := c.Param(serverKey)
-	if server == "" {
-		c.Abort()
-		fail(c, "Param server is required")
-		return
-	}
 	cookie, err := c.Request.Cookie("token")
 	if err != nil {
 		c.Abort()
@@ -138,6 +132,7 @@ func ValidJWT(c *gin.Context) {
 	token, err := jwt.Parse(cookie.Value, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})
+	server := c.Param(serverKey)
 
 	if err != nil || !token.Valid {
 		logrus.WithError(err).WithFields(logrus.Fields{

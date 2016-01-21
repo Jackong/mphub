@@ -20,6 +20,7 @@ func main() {
 	{
 		api.Any("/wechat", route.ServeWechat)
 		server := api.Group("/servers/:server")
+		server.Use(route.ValidServer)
 		{
 			server.POST("", route.SetServer)
 			server.GET("/menus", route.GetMenu)
@@ -34,6 +35,10 @@ func main() {
 				user.GET("", route.GetUserInfo)
 				user.POST("/bind", route.BindAOPS)
 			}
+		}
+		msg := api.Group("/messages")
+		{
+			msg.POST("/template", route.PushTemplate)
 		}
 	}
 	r.Run(os.Getenv("HTTP_ADDR"))

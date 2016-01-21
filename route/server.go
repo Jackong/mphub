@@ -86,3 +86,14 @@ func SetServer(c *gin.Context) {
 	ts[server] = mp.NewDefaultAccessTokenServer(appID, appSecret, nil)
 	ok(c, nil)
 }
+
+//ValidServer valid server
+func ValidServer(c *gin.Context) {
+	server := c.Param(serverKey)
+	if server == "" {
+		c.Abort()
+		fail(c, "Param server is required")
+		return
+	}
+	c.Next()
+}

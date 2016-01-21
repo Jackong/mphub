@@ -24,10 +24,6 @@ var (
  */
 func GetUserInfo(c *gin.Context) {
 	server := c.Param(serverKey)
-	if server == "" {
-		fail(c, "Param server is required")
-		return
-	}
 	token := c.MustGet("token").(*jwt.Token)
 	openID := token.Claims["openID"].(string)
 	client := user.NewClient(ts[server], nil)
